@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Grenger's Portfolio - Responsive</title>
+<link rel="icon" href="favicon.ico" type="image/x-icon" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<style>
+  /* General Reset */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  :root {
+    --color-primary-start: #4b6cb7;
+    --color-primary-end: #8a2be2;
+    --color-primary-light: #e0e6f8;
+    --color-primary-dark: #4a4a4a;
+    --color-accent: #00ffff;
+    --color-accent-hover: #8a2be2;
+    --color-background-light: #f0f4f8;
+    --color-background-dark: #121212;
+    --color-shadow: rgba(75, 108, 183, 0.15);
+  }
+
+  body {
+    font-family: 'Roboto', sans-serif;
+    background: var(--color-background-light);
+    color: var(--color-primary-dark);
+    scroll-behavior: smooth;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: transparent;
+    transition: background-color 0.3s ease;
+    z-index: 1000;
+  }
+
+  header.scrolled {
+    background: linear-gradient(90deg, var(--color-primary-start) 0%, var(--color-primary-end) 100%);
+    box-shadow: 0 2px 8px var(--color-shadow);
+  }
+
+  nav {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+  }
+
+  nav h1 {
+    font-size: 1.8rem;
+    color: var(--color-primary-light);
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+
+  nav ul li a {
+    color: var(--color-primary-light);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+  }
+
+  .contact-info {
+    display: flex;
+    gap: 15px;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    color: var(--color-primary-light);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+  }
+
+  .contact-link:hover {
+    color: var(--color-accent);
+  }
+
+  .contact-link .icon {
+    font-size: 1.2rem;
+    margin-right: 8px;
+  }
+
+  /* Responsive Navigation */
+  @media (max-width: 768px) {
+    nav {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    nav ul {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    nav h1 {
+      margin-bottom: 10px;
+    }
+
+    .contact-info {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+
+  .hero {
+    height: 60vh;
+    background: linear-gradient(rgba(75, 108, 183, 0.2), rgba(138, 43, 226, 0.2)), 
+                url('./WhatsApp Image 2025-04-15 at 18.10.22_f6ac1182.jpg') no-repeat center center/cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-primary-light);
+    text-align: center;
+    padding: 0 20px;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+  }
+
+  .hero p {
+    font-size: 1.2rem;
+    max-width: 600px;
+  }
+
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 2rem;
+    }
+
+    .hero p {
+      font-size: 1rem;
+    }
+  }
+
+  main {
+    max-width: 900px;
+    margin: 80px auto 60px;
+    padding: 0 20px;
+  }
+
+  section {
+    background: var(--color-background-light);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 40px;
+    box-shadow: 0 6px 15px var(--color-shadow);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  section h2 {
+    font-size: 1.8rem;
+    color: var(--color-primary-start);
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  ul.projects-list,
+  ul.skills-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  ul.projects-list li,
+  ul.skills-list li {
+    background: var(--color-primary-start);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+
+  ul.projects-list li:hover,
+  ul.skills-list li:hover {
+    transform: scale(1.05);
+  }
+
+  /* Responsive Grid */
+  @media (max-width: 768px) {
+    ul.projects-list,
+    ul.skills-list {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  form.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  form.contact-form input,
+  form.contact-form textarea {
+    padding: 10px;
+    border: 2px solid var(--color-primary-start);
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+
+  form.contact-form button {
+    padding: 10px;
+    background: var(--color-primary-start);
+    color: white;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  form.contact-form button:hover {
+    background-color: var(--color-primary-end);
+  }
+
+  footer {
+    text-align: center;
+    padding: 20px 0;
+    color: #a0a0a0;
+    font-size: 0.9rem;
+  }
+
+  /* Accessibility improvements */
+  a, button {
+    cursor: pointer;
+  }
+
+  a:focus, button:focus, input:focus {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  /* Media Queries for Smaller Screens */
+  @media (max-width: 480px) {
+    nav h1 {
+      font-size: 1.5rem;
+    }
+
+    nav ul li a {
+      font-size: 0.9rem;
+    }
+
+    .hero h1 {
+      font-size: 1.8rem;
+    }
+
+    .hero p {
+      font-size: 0.9rem;
+    }
+
+    section h2 {
+      font-size: 1.5rem;
+    }
+  }
+
+body.dark-mode {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+}
+
+.safety-card.dark-mode {
+  background: #34495e;
+  color: #ecf0f1;
+}
+
+.safety-card {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Safety Section */
+.safety-section {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.section-subtitle {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  max-width: 800px;
+  margin: 0 auto 40px;
+}
+
+/* Safety Grid */
+.safety-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+.safety-card {
+  background: white;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.safety-card:hover {
+  transform: translateY(-10px);
+}
+
+.safety-card i {
+  font-size: 2.5rem;
+  color: #3498db;
+  margin-bottom: 20px;
+}
+
+.safety-card h3 {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.safety-card p {
+  color: #7f8c8d;
+  font-size: 1rem;
+}
+
+/* CTA Section */
+.safety-cta {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.safety-cta p {
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  margin-bottom: 25px;
+}
+
+.cta-button {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.cta-button:hover {
+  background: #2980b9;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .section-subtitle {
+    font-size: 1rem;
+  }
+  
+  .safety-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+#scrollToTopBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: none;
+  background-color: var(--color-primary-start);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 10px 15px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#scrollToTopBtn:hover {
+  background-color: var(--color-primary-end);
+  transform: scale(1.1);
+}
+
+/* Dark Mode Toggle Switch */
+.dark-mode-toggle {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  z-index: 2147483647; /* Max z-index to ensure visibility */
+  background-color: var(--color-background-light);
+  padding: 5px;
+  border-radius: 30px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.dark-mode-toggle input {
+  display: none;
+}
+
+.dark-mode-toggle .slider {
+  position: relative;
+  width: 50px;
+  height: 25px;
+  background-color: var(--color-primary-dark);
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dark-mode-toggle .slider::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  top: 2.5px;
+  left: 2.5px;
+  transition: transform 0.3s ease;
+}
+
+.dark-mode-toggle input:checked + .slider {
+  background-color: var(--color-primary-start);
+}
+
+.dark-mode-toggle input:checked + .slider::before {
+  transform: translateX(25px);
+}
+
+/* Dark Mode Animations */
+body.dark-mode {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+header.dark-mode {
+  background-color: #34495e;
+  transition: background-color 0.5s ease;
+}
+
+.safety-card.dark-mode {
+  background-color: #34495e;
+  color: #ecf0f1;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Dark Mode Styles for Buttons and Links */
+button.dark-mode, a.dark-mode {
+  background-color: #34495e;
+  color: #ecf0f1;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+button.dark-mode:hover, a.dark-mode:hover {
+  background-color: #2c3e50;
+}
+
+/* Dark Mode Styles for Form Inputs */
+input.dark-mode, textarea.dark-mode {
+  background-color: #34495e;
+  color: #ecf0f1;
+  border: 2px solid #2c3e50;
+  transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+}
+
+input.dark-mode::placeholder, textarea.dark-mode::placeholder {
+  color: #95a5a6;
+}
+</style>
+</head>
+<body>
+<header id="header">
+  <nav>
+    <h1>GRENGER</h1>
+    <ul>
+      <li><a href="#welcome" class="active">Home</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li>
+        <label for="darkModeSwitch" class="nav-darkmode-label" title="Toggle Dark Mode" style="cursor:pointer; display:flex; align-items:center; gap:5px; color: var(--color-primary-light); font-weight:700;">
+          <i class="fas fa-moon"></i>
+          <input type="checkbox" id="darkModeSwitch" style="display:none;" />
+        </label>
+      </li>
+    </ul>
+    <div class="contact-info">
+      <a href="https://wa.me/260976532430" target="_blank" class="contact-link">
+        <i class="fab fa-whatsapp icon"></i> WhatsApp
+      </a>
+      <a href="https://github.com/GREGG930" target="_blank" class="contact-link">
+        <i class="fab fa-github icon"></i> GitHub
+      </a>
+    </div>
+  </nav>
+</header>
+  <section class="hero">
+    <h1 id="greeting">Welcome to My Portfolio</h1>
+    <p>Explore my projects, skills, and experiences.</p>
+    <p id="dynamicQuote"></p>
+  </section>
+<main>
+  <!-- About Me section removed as per user request -->
+  <section id="projects">
+    <h2>Projects</h2>
+    <ul class="projects-list">
+      <li>Project One - Responsive website built with HTML, CSS, and JavaScript.</li>
+      <li>Project Two - Web app using React and Node.js for task management.</li>
+      <li>Project Three - Personal blog platform with content management features.</li>
+    </ul>
+  </section>
+  <section id="skills" class="skills-section">
+    <div class="max-w-6xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-8">💡 Skills</h2>
+      <p class="text-lg text-gray-600 mb-12">
+        A blend of technical expertise and adaptability to excel in any environment.
+      </p>
+
+      <ul class="skills-list">
+        <li class="skill-card">HTML</li>
+        <li class="skill-card">CSS</li>
+        <li class="skill-card">JavaScript</li>
+        <li class="skill-card">React</li>
+        <li class="skill-card">Quick Learner</li>
+        <li class="skill-card">Adaptive</li>
+        <li class="skill-card">Problem Solving</li>
+        <li class="skill-card">Team Collaboration</li>
+        <li class="skill-card">Critical Thinking</li>
+      </ul>
+    </div>
+  </section>
+  <section class="bg-white py-12 px-6" id="services">
+    <div class="max-w-6xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-8">🧰 Services Offered</h2>
+      <p class="text-lg text-gray-600 mb-12">
+        What I can help you with — for businesses, students, and individuals.
+      </p>
+
+      <div class="services-list animated-services">
+        <!-- Service Card -->
+        <div class="service-card">
+          <div class="icon">🌐</div>
+          <h3>Website Creation & Design</h3>
+          <p>Responsive websites built with HTML, CSS & JavaScript.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="icon">📚</div>
+          <h3>Academic Assignments & Reports</h3>
+          <p>Professional documents with strong formatting and structure.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="icon">📄</div>
+          <h3>CV / Resume Designing</h3>
+          <p>Modern, tailored CVs and resumes for various industries.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="icon">🗄️</div>
+          <h3>Database Design & Management</h3>
+          <p>Clean and effective databases using SQL, ERDs, and planning.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="icon">💻</div>
+          <h3>Laptop Troubleshooting & Fixing</h3>
+          <p>Diagnosing and fixing performance issues and software problems.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="icon">💿</div>
+          <h3>Software & Windows Installation</h3>
+          <p>Operating system setup and troubleshooting for optimal performance.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="icon">🧠</div>
+          <h3>MS Word / Excel Tools Tutoring</h3>
+          <p>Learn advanced tools like mail merge, formulas, and VBA basics.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="icon">📱</div>
+          <h3>Phone Flashing & Software Reset</h3>
+          <p>Restore phones, remove malware, and install updated ROMs.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="icon">☁️</div>
+          <h3>File Hosting & Cloud Storage</h3>
+          <p>Secure file hosting and cloud storage solutions for easy access.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <style>
+  .animated-services {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .service-card {
+    background: var(--color-primary-start);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    animation-fill-mode: forwards;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  }
+
+  .service-card:hover {
+    transform: scale(1.1) rotate(2deg);
+    box-shadow: 0 12px 30px rgba(75, 108, 183, 0.8);
+    background: linear-gradient(135deg, #4b6cb7, #8a2be2);
+    color: #fff;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  </style>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const serviceCards = document.querySelectorAll(".service-card");
+    serviceCards.forEach((card, index) => {
+      card.style.animation = `fadeInUp 0.6s ease forwards`;
+      card.style.animationDelay = `${index * 0.15}s`;
+    });
+  });
+  </script>
+
+  <!-- Inserted Safety Section -->
+  <section class="safety-section">
+    <h2 class="section-title">Stay Smart. Stay Safe. Stay Winning.</h2>
+    <p class="section-subtitle">
+      The internet is like a giant city — exciting, full of opportunity, but with a few dark alleys.<br>
+      Whether you're running a business, launching a brand, or just surfing, your digital safety matters.  
+      Here's how to keep it 100% secure:
+    </p>
+
+    <div class="safety-grid">
+
+      <div class="safety-card">
+        <i class="fas fa-lock"></i>
+        <h3>Lock the Doors (Strong Passwords)</h3>
+        <p>Passwords should be strong, unique, and tougher than your favorite pizza combo.</p>
+      </div>
+
+      <div class="safety-card">
+        <i class="fas fa-shield-alt"></i>
+        <h3>Double Up (2FA)</h3>
+        <p>Think of it like a secret handshake — only you and your trusted device know it.</p>
+      </div>
+
+      <div class="safety-card">
+        <i class="fas fa-sync-alt"></i>
+        <h3>Stay Fresh (Updates)</h3>
+        <p>Old systems are open windows. Updates keep everything locked tight.</p>
+      </div>
+
+      <div class="safety-card">
+        <i class="fas fa-exclamation-triangle"></i>
+        <h3>Trust No Sketchy Links</h3>
+        <p>If it looks weird, smells weird, or promises too-good-to-be-true deals, it's probably a trap.</p>
+      </div>
+
+      <div class="safety-card">
+        <i class="fas fa-cloud"></i>
+        <h3>Back It Up</h3>
+        <p>Your data is gold. Keep copies in multiple secure locations - cloud and local.</p>
+      </div>
+
+      <div class="safety-card">
+        <i class="fas fa-user-secret"></i>
+        <h3>Privacy First</h3>
+        <p>Share less online. The internet never forgets, so be mindful of your digital footprint.</p>
+      </div>
+
+    </div>
+
+    <div class="safety-cta">
+      <p>Security isn't just for tech experts — it's for everyone who values their digital life.</p>
+      <button class="cta-button">Learn More About Web Safety</button>
+    </div>
+  </section>
+
+  <section id="contact">
+  <div class="contact-container">
+    <div class="contact-header">
+      <h2>Get In Touch</h2>
+      <p>We'd love to hear from you! Send us a message.</p>
+    </div>
+    <form class="contact-form" id="contactForm">
+      <div class="form-group">
+        <input type="text" id="name" placeholder=" " required>
+        <label for="name">Your Name</label>
+      </div>
+      <div class="form-group">
+        <input type="email" id="email" placeholder=" " required>
+        <label for="email">Your Email</label>
+      </div>
+      <div class="form-group">
+        <input type="text" id="subject" placeholder=" ">
+        <label for="subject">Subject (Optional)</label>
+      </div>
+      <div class="form-group">
+        <textarea id="message" placeholder=" " required></textarea>
+        <label for="message">Your Message</label>
+      </div>
+      <button type="submit" class="submit-btn">
+        Send Message <i class="fas fa-paper-plane"></i>
+      </button>
+      <div class="social-links">
+        <a href="https://facebook.com" class="social-link facebook floating" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://twitter.com" class="social-link twitter floating" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://instagram.com" class="social-link instagram floating" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://linkedin.com" class="social-link linkedin floating" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </form>
+  </div>
+</section>
+</main>
+<footer>
+  &copy; 2025 Grenger. All rights reserved.
+</footer>
+<button id="scrollToTopBtn" title="Go to top">⬆</button>
+<!-- Dark Mode Toggle Button -->
+<div class="dark-mode-toggle" title="Toggle Dark Mode">
+  <input type="checkbox" id="darkModeSwitch" />
+  <label for="darkModeSwitch" class="slider"></label>
+</div>
+<script>
+  // Array of dynamic quotes
+  const quotes = [
+    "“If you want to go fast, go alone. If you want to go far, go together.” - African Proverb",
+    "“Technology is best when it brings people together.” - Matt Mullenweg",
+    "“The future belongs to those who prepare for it today.” - Kenneth Kaunda",
+    "“Why was the computer cold? It left its Windows open!” - Tech Humor",
+    "“Debugging is like being the detective in a crime movie where you are also the murderer.” - Filipe Fortes"
+  ];
+
+  // Dynamic quote display
+  const dynamicQuoteElement = document.getElementById("dynamicQuote");
+  let quoteIndex = 0;
+
+  function showNextQuote() {
+    dynamicQuoteElement.textContent = quotes[quoteIndex];
+    quoteIndex = (quoteIndex + 1) % quotes.length;
+  }
+
+  if (quotes.length > 0) {
+  setInterval(showNextQuote, 5000);
+  showNextQuote();
+} else {
+  dynamicQuoteElement.textContent = "No quotes available.";
+}
+
+  // Greeting based on time of day and Scroll to Top Button Functionality
+  document.addEventListener("DOMContentLoaded", () => {
+    const greetingElement = document.getElementById("greeting");
+
+    function updateGreeting() {
+      const now = new Date();
+      const hour = now.getHours();
+      let greetingText = "Welcome to My Portfolio";
+
+      if (hour >= 5 && hour < 12) {
+        greetingText = "Good Morning! Welcome to My Portfolio";
+      } else if (hour >= 12 && hour < 18) {
+        greetingText = "Good Afternoon! Welcome to My Portfolio";
+      } else if (hour >= 18 && hour < 22) {
+        greetingText = "Good Evening! Welcome to My Portfolio";
+      } else {
+        greetingText = "Welcome to My Portfolio";
+      }
+
+      greetingElement.textContent = greetingText;
+    }
+
+    updateGreeting();
+
+    // Optionally update greeting every 30 minutes
+    setInterval(updateGreeting, 1800000);
+
+    const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+    // Show button when user scrolls near the bottom
+    window.onscroll = function () {
+      const scrollPosition = window.scrollY + window.innerHeight;
+      const threshold = 100; // px from bottom to show button
+      if (scrollPosition >= document.body.offsetHeight - threshold) {
+        scrollToTopBtn.style.display = "block";
+      } else {
+        scrollToTopBtn.style.display = "none";
+      }
+    };
+  });
+
+  // Scroll to top when button is clicked
+  scrollToTopBtn.addEventListener("click", function () {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  // Dark Mode Toggle Functionality
+  const darkModeSwitch = document.getElementById("darkModeSwitch");
+
+  // Load saved theme from localStorage
+  window.addEventListener("load", () => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      document.body.classList.add("dark-mode");
+      document.querySelector("header").classList.add("dark-mode");
+      document.querySelectorAll(".safety-card").forEach(card => card.classList.add("dark-mode"));
+      darkModeSwitch.checked = true;
+    }
+  });
+
+  // Toggle dark mode
+  darkModeSwitch.addEventListener("change", () => {
+    const elementsToToggle = [
+      document.body,
+      document.querySelector("header"),
+      ...document.querySelectorAll(".safety-card, button, a, input, textarea")
+    ];
+
+    if (darkModeSwitch.checked) {
+      elementsToToggle.forEach(el => el.classList.add("dark-mode"));
+      localStorage.setItem("theme", "dark");
+    } else {
+      elementsToToggle.forEach(el => el.classList.remove("dark-mode"));
+      localStorage.setItem("theme", "light");
+    }
+  });
+
+  // Intersection Observer for smooth scroll animations
+  document.addEventListener("DOMContentLoaded", () => {  // Intersection Observer for smooth scroll animations
+    const observerOptions = {
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+    } else {
+      entry.target.classList.remove("visible");
+    }
+  });
+}, observerOptions);
+    // Observe sections and contact container for animation
+    const animatedElements = document.querySelectorAll("section, .contact-container, .hero h1, .hero p, #dynamicQuote, .service-card");
+  animatedElements.forEach(el => observer.observe(el));
+});
+
+document.getElementById("contactForm").addEventListener("submit", function (event) {
+  event.preventDefault(); // Prevent form submission
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const message = document.getElementById("message").value.trim();
+  if (!name || !email || !message) {
+    alert("Please fill in all required fields.");
+    return;
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    alert("Please enter a valid email address.");
+    return;
+  }
+  alert("Form submitted successfully!");
+  // Optionally, you can send the form data to a server here
+});
+
+document.querySelectorAll("nav ul li a").forEach(anchor => {
+  anchor.addEventListener("click", function (event) {
+    event.preventDefault();
+    const targetId = this.getAttribute("href").substring(1);
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: "smooth" });
+    }
+  });
+});
+
+
+document.querySelectorAll("a, button").forEach(element => {
+  element.addEventListener("focus", () => {
+    element.style.outline = "3px solid var(--color-accent)";
+  });
+  element.addEventListener("blur", () => {
+    element.style.outline = "none";
+  });
+});
+</script>
+</body>
+</html>
